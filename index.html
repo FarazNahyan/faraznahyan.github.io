@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faraz Nahyan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0c;
+      --surface: #181714;
+      --border: #2a2822;
+      --text: #e4dcc8;
+      --muted: #7a7060;
+      --accent: #c8a96e;
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    header {
+      padding: 3.5rem 0 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .site-name {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .site-tagline {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      gap: 0;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem 0.6rem 0;
+      margin-right: 1.6rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    nav button:hover { color: var(--text); }
+
+    nav button.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* SECTIONS */
+    .section {
+      display: none;
+      padding: 4rem 0 6rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ABOUT */
+    .about-bio {
+      font-family: var(--serif);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 3.5rem;
+    }
+
+    .about-bio em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .currently-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .currently-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .currently-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .currently-list li::before {
+      content: '—';
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .contact-line {
+      margin-top: 3.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .contact-line a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contact-line a:hover { border-bottom-color: var(--accent); }
+
+    /* PROJECTS */
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .project-grid {
+      display: grid;
+      gap: 1.5px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem 2rem 1.8rem;
+      transition: border-color 0.25s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .project-link:hover { border-bottom-color: var(--accent); }
+
+    /* PHOTOGRAPHY */
+    .photo-intro {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 3px;
+    }
+
+    .photo-placeholder {
+      aspect-ratio: 4/5;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .photo-placeholder:hover { border-color: var(--muted); }
+
+    .photo-grid img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%);
+      transition: filter 0.4s;
+    }
+
+    .photo-grid img:hover { filter: grayscale(0%); }
+
+    /* PERFORMANCES */
+    .performances-intro {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .video-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .video-item {}
+
+    .video-embed {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .video-caption {
+      margin-top: 0.8rem;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav button { margin-right: 0.8rem; font-size: 0.75rem; }
+      .project-card { padding: 1.5rem; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1 class="site-name">Faraz Nahyan</h1>
+      <p class="site-tagline">Toronto · Engineer · Entrepreneur</p>
+      <nav>
+        <button class="active" onclick="showSection('about', this)">About</button>
+        <button onclick="showSection('projects', this)">Projects</button>
+        <button onclick="showSection('photography', this)">Photography</button>
+        <button onclick="showSection('performances', this)">Performances</button>
+      </nav>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="section active">
+      <p class="about-bio">
+        Faraz Nahyan is an electrical engineer and entrepreneur based in Toronto, working at the intersection of <em>biomedical technology</em> and human experience. Outside of building, he shoots portrait photography and performs classical and jazz piano.
+      </p>
+
+      <p class="currently-label">Currently</p>
+      <ul class="currently-list">
+        <li>Developing a retinal prosthetics venture through Brilliant Catalyst, Ontario Tech</li>
+        <li>Completing a B.Eng. in Electrical Engineering — prior B.Sc. in Biochemistry</li>
+        <li>Building at the intersection of biological and inorganic interfaces</li>
+        <li>Open to engineering roles, research collaborations, and photography commissions</li>
+      </ul>
+
+      <p class="contact-line">
+        Get in touch — <a href="mailto:faraz@faraznahyan.com">faraz@faraznahyan.com</a>
+      </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <p class="section-label">Selected work</p>
+      <div class="project-grid">
+
+        <div class="project-card">
+          <p class="project-tag">Biomedical · Venture</p>
+          <h2 class="project-title">Retinal Prosthetics</h2>
+          <p class="project-desc">
+            Developing a retinal prosthetic device through the Brilliant Catalyst incubator at Ontario Tech. Focused on biological-to-inorganic interfacing — translating electrical signals across the boundary of living tissue and synthetic substrate to restore functional vision.
+          </p>
+          <!-- <a href="#" class="project-link">Learn more →</a> -->
+        </div>
+
+        <div class="project-card">
+          <p class="project-tag">Engineering · Software</p>
+          <h2 class="project-title">Chronicle of Conflict</h2>
+          <p class="project-desc">
+            An interactive geopolitical timeline built as a portfolio side project — mapping the structure and chronology of global conflicts through data visualisation and narrative. Designed for analytical clarity.
+          </p>
+          <!-- <a href="https://github.com/FarazNahyan" class="project-link">View on GitHub →</a> -->
+        </div>
+
+        <div class="project-card">
+          <p class="project-tag">GitHub</p>
+          <h2 class="project-title">More on GitHub</h2>
+          <p class="project-desc">
+            Engineering coursework, embedded systems, signal processing, and personal experiments — all public.
+          </p>
+          <a href="https://github.com/FarazNahyan" class="project-link" target="_blank" rel="noopener">github.com/FarazNahyan →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PHOTOGRAPHY -->
+    <section id="photography" class="section">
+      <p class="photo-intro">
+        Portrait photography. Work added as the portfolio grows — check back.
+      </p>
+      <div class="photo-grid">
+        <!-- Replace these placeholders with real <img> tags as you build your portfolio -->
+        <!-- Example: <img src="photos/portrait-01.jpg" alt="Portrait, Toronto 2025"> -->
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+      </div>
+    </section>
+
+    <!-- PERFORMANCES -->
+    <section id="performances" class="section">
+      <p class="performances-intro">
+        Classical and jazz piano. Recorded live and at home — no polish, just performance.
+      </p>
+      <div class="video-grid">
+
+        <!-- HOW TO ADD A VIDEO:
+             1. Go to your YouTube video
+             2. Click Share → Embed
+             3. Copy the src URL (looks like https://www.youtube.com/embed/VIDEOID)
+             4. Replace the placeholder below with a real <iframe> inside .video-embed
+        -->
+
+        <div class="video-item">
+          <div class="video-embed">
+            <div class="video-placeholder">
+              <span>—</span>
+              <span>First recording coming soon</span>
+            </div>
+          </div>
+          <p class="video-caption">Title of piece · Composer</p>
+        </div>
+
+        <div class="video-item">
+          <div class="video-embed">
+            <div class="video-placeholder">
+              <span>—</span>
+              <span>More to come</span>
+            </div>
+          </div>
+          <p class="video-caption">Title of piece · Composer</p>
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+  <div class="container">
+    <footer>
+      <span>© 2025 Faraz Nahyan</span>
+      <div class="footer-links">
+        <a href="https://github.com/FarazNahyan" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.youtube.com/channel/UC-ZxVEcIJNhSqTQxrInEcYg" target="_blank" rel="noopener">YouTube</a>
+        <!-- <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener">Instagram</a> -->
+        <a href="mailto:faraz@faraznahyan.com">Email</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function showSection(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
