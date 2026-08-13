@@ -279,6 +279,11 @@
 
     .photo-grid img:hover { filter: grayscale(0%); }
 
+    .photo-grid--street .photo-placeholder,
+    .photo-grid--street img {
+      aspect-ratio: 3/2;
+    }
+
     /* PERFORMANCES */
     .performances-intro {
       font-size: 0.9rem;
@@ -367,166 +372,6 @@
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
-   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
-  :root {
-    --bg:        #0e0d0c;
-    --paper:     #ede8e0;
-    --muted:     #8b8680;
-    --line:      #2a2724;
-    --accent:    #c9a876;
-    --dur:       0.4s;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--paper);
-    font-family: 'IBM Plex Mono', monospace;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  a { color: inherit; text-decoration: none; }
-
-  /* ---------- mini index / nav ---------- */
-  .index {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    gap: 2rem;
-    padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
-    background: color-mix(in srgb, var(--bg) 92%, transparent);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .index a {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: color var(--dur) ease;
-  }
-
-  .index a:hover,
-  .index a:focus-visible { color: var(--accent); }
-
-  /* ---------- section ---------- */
-  .portfolio {
-    padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 3rem);
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .section-head .idx {
-    font-size: 0.75rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-
-  .section-head h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-optical-sizing: auto;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-
-  .section-head .rule {
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-    align-self: center;
-  }
-
-  /* ---------- grid ---------- */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(0.5rem, 1.5vw, 1.25rem);
-  }
-
-  .frame {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    outline-offset: 4px;
-  }
-
-  .frame:focus-visible { outline: 1px solid var(--accent); }
-
-  /* portraits: vertical, 4:5. street: horizontal, 3:2 — set per-section below */
-  #portraits .ph { aspect-ratio: 4 / 5; }
-  #street .ph    { aspect-ratio: 3 / 2; }
-
-  .ph {
-    width: 100%;
-    background:
-      repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.015) 2px 4px),
-      linear-gradient(155deg, #1c1a17 0%, #131211 55%, #0b0a09 100%);
-    transition: filter var(--dur) ease, transform var(--dur) ease;
-  }
-
-  .frame:hover .ph,
-  .frame:focus-visible .ph {
-    filter: brightness(0.55);
-    transform: scale(1.015);
-  }
-
-  .tag {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.6rem 0.75rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
-    transform: translateY(8px);
-    opacity: 0;
-    transition: transform var(--dur) ease, opacity var(--dur) ease;
-  }
-
-  .frame:hover .tag,
-  .frame:focus-visible .tag {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .fnum {
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-  }
-
-  .cap {
-    font-size: 0.7rem;
-    color: var(--muted);
-  }
-
-  /* ---------- responsive ---------- */
-  @media (max-width: 780px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 480px) {
-    .grid { grid-template-columns: 1fr; }
-    .index { gap: 1.25rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ph, .tag { transition: none; }
-  }
 </head>
 <body>
 
@@ -599,11 +444,24 @@
     <!-- PHOTOGRAPHY -->
     <section id="photography" class="section">
       <p class="photo-intro">
-        Portrait photography. Work added as the portfolio grows — check back.
+        Portrait and street work. New shots added as the portfolio grows — check back.
       </p>
+
+      <p class="section-label">Portraits</p>
       <div class="photo-grid">
         <!-- Replace these placeholders with real <img> tags as you build your portfolio -->
-        <!-- Example: <img src="photos/portrait-01.jpg" alt="Portrait, Toronto 2025"> -->
+        <!-- Example: <img src="photos/portraits/01.jpg" alt="Portrait, Toronto 2025"> -->
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+        <div class="photo-placeholder">Coming soon</div>
+      </div>
+
+      <p class="section-label" style="margin-top: 3rem;">Street</p>
+      <div class="photo-grid photo-grid--street">
+        <!-- Example: <img src="photos/street/01.jpg" alt="Street, Toronto 2025"> -->
         <div class="photo-placeholder">Coming soon</div>
         <div class="photo-placeholder">Coming soon</div>
         <div class="photo-placeholder">Coming soon</div>
@@ -672,43 +530,6 @@
       btn.classList.add('active');
     }
   </script>
-
-<nav class="index">
-  <a href="#portraits">01 — Portraits</a>
-  <a href="#street">02 — Street</a>
-</nav>
-
-<section class="portfolio" id="portraits">
-  <div class="section-head">
-    <span class="idx">01</span>
-    <h2>Portraits</h2>
-    <div class="rule"></div>
-  </div>
-  <div class="grid">
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-01</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-02</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-03</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-04</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-05</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">P-06</span><span class="cap"></span></div></a>
-  </div>
-</section>
-
-<section class="portfolio" id="street">
-  <div class="section-head">
-    <span class="idx">02</span>
-    <h2>Street</h2>
-    <div class="rule"></div>
-  </div>
-  <div class="grid">
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-01</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-02</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-03</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-04</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-05</span><span class="cap"></span></div></a>
-    <a class="frame" href="#"><div class="ph"></div><div class="tag"><span class="fnum">S-06</span><span class="cap"></span></div></a>
-  </div>
-</section>
 
 </body>
 </html>
