@@ -266,9 +266,10 @@
     }
 
     .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 3px;
+      display: flex;
+      flex-direction: column;
+      gap: 1cm;
+      width: 100%;
     }
 
     .photo-placeholder {
@@ -289,8 +290,8 @@
 
     .photo-grid img {
       width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
+      height: auto;
+      object-fit: contain;
       display: block;
       filter: grayscale(15%);
       transition: filter 0.4s;
@@ -298,9 +299,8 @@
 
     .photo-grid img:hover { filter: grayscale(0%); }
 
-    .photo-grid--street .photo-placeholder,
     .photo-grid--street img {
-      aspect-ratio: 3/2;
+      aspect-ratio: auto;
     }
 
     /* PERFORMANCES */
@@ -388,7 +388,6 @@
     @media (max-width: 600px) {
       nav button { margin-right: 0.8rem; font-size: 0.75rem; }
       .project-card { padding: 1.5rem; }
-      .photo-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -468,9 +467,6 @@
         <img src="./photos/street/street-01.jpg.jpg" alt="Street photograph 1" loading="lazy">
         <img src="./photos/street/street-02.jpg.jpg" alt="Street photograph 2" loading="lazy">
         <img src="./photos/street/street-03.jpg.jpg" alt="Street photograph 3" loading="lazy">
-        <div class="photo-placeholder">Coming soon</div>
-        <div class="photo-placeholder">Coming soon</div>
-        <div class="photo-placeholder">Coming soon</div>
       </div>
 
       <p class="section-label" style="margin-top: 3rem;">Portraits</p>
@@ -537,54 +533,14 @@
     </footer>
   </div>
 
-<script>
-  function showSection(id, button, updateUrl = true) {
-    document.querySelectorAll('.section').forEach(section => {
-      section.classList.remove('active');
-    });
-
-    document.querySelectorAll('nav button').forEach(navButton => {
-      navButton.classList.remove('active');
-    });
-
-    const section = document.getElementById(id);
-
-    if (!section) return;
-
-    section.classList.add('active');
-
-    if (button) {
-      button.classList.add('active');
+  <script>
+    function showSection(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
     }
-
-    if (updateUrl) {
-      history.replaceState(null, '', '#' + id);
-    }
-  }
-
-  function loadSelectedSection() {
-    const validSections = [
-      'about',
-      'resume',
-      'projects',
-      'photography'
-    ];
-
-    const requestedSection = window.location.hash.slice(1);
-    const sectionId = validSections.includes(requestedSection)
-      ? requestedSection
-      : 'about';
-
-    const button = document.querySelector(
-      `nav button[onclick*="'${sectionId}'"]`
-    );
-
-    showSection(sectionId, button, false);
-  }
-
-  window.addEventListener('DOMContentLoaded', loadSelectedSection);
-  window.addEventListener('hashchange', loadSelectedSection);
-</script>
+  </script>
 
 </body>
 </html>
