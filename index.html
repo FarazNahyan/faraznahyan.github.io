@@ -266,10 +266,11 @@
     }
 
     .photo-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1cm;
-      width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1cm;
+    width: 100%;
     }
 
     .photo-placeholder {
@@ -288,14 +289,15 @@
 
     .photo-placeholder:hover { border-color: var(--muted); }
 
-    .photo-grid img {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      display: block;
-      filter: grayscale(15%);
-      transition: filter 0.4s;
-    }
+.photo-grid img {
+  width: min(100%, 760px);
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(15%);
+  transition: filter 0.4s;
+}
 
     .photo-grid img:hover { filter: grayscale(0%); }
 
