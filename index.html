@@ -334,6 +334,11 @@
       aspect-ratio: 1 / 1;
     }
 
+    .photo-grid img.frame-natural-height {
+      aspect-ratio: auto;
+      height: auto;
+    }
+
     /* PERFORMANCES */
     .performances-intro {
       font-size: 0.9rem;
@@ -641,7 +646,27 @@
       showSection(sectionId, button, false);
     }
 
+    function setAdaptivePhotoFrame(image) {
+      if (!image.naturalWidth || !image.naturalHeight) return;
+
+      const hasVerticalFrameWaste = image.naturalWidth > image.naturalHeight;
+      image.classList.toggle('frame-natural-height', hasVerticalFrameWaste);
+    }
+
+    function applyAdaptivePhotoFrames() {
+      document.querySelectorAll('.photo-grid img').forEach(image => {
+        if (image.complete && image.naturalWidth) {
+          setAdaptivePhotoFrame(image);
+        } else {
+          image.addEventListener('load', () => {
+            setAdaptivePhotoFrame(image);
+          }, { once: true });
+        }
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', loadSelectedSection);
+    window.addEventListener('DOMContentLoaded', applyAdaptivePhotoFrames);
     window.addEventListener('hashchange', loadSelectedSection);
   </script>
 
