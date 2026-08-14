@@ -271,11 +271,11 @@
     }
 
     .photo-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1cm;
-    width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1cm;
+      width: 100%;
     }
 
     .photo-placeholder {
@@ -294,20 +294,23 @@
 
     .photo-placeholder:hover { border-color: var(--muted); }
 
-.photo-grid img {
-  width: min(100%, 760px);
-  height: auto;
-  max-height: 80vh;
-  object-fit: contain;
-  display: block;
-  filter: grayscale(15%);
-  transition: filter 0.4s;
-}
+    .photo-grid img {
+      width: 100%;
+      max-width: 620px;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      display: block;
+      box-sizing: border-box;
+      background: #ffffff;
+      padding: 0.5cm;
+      filter: grayscale(15%);
+      transition: filter 0.4s;
+    }
 
     .photo-grid img:hover { filter: grayscale(0%); }
 
     .photo-grid--street img {
-      aspect-ratio: auto;
+      aspect-ratio: 1 / 1;
     }
 
     /* PERFORMANCES */
