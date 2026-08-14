@@ -120,6 +120,13 @@
     }
 
     /* ABOUT */
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+      gap: 3rem;
+      align-items: start;
+    }
+
     .about-bio {
       font-family: var(--serif);
       font-size: clamp(1.1rem, 2.5vw, 1.35rem);
@@ -167,6 +174,15 @@
       margin-top: 3.5rem;
       font-size: 0.82rem;
       color: var(--muted);
+      text-align: center;
+    }
+
+    .about-headshot {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      display: block;
+      justify-self: end;
     }
 
     .contact-line a {
@@ -395,6 +411,18 @@
     .footer-links a:hover { color: var(--accent); }
 
     /* RESPONSIVE */
+    @media (max-width: 760px) {
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .about-headshot {
+        max-width: 280px;
+        justify-self: center;
+      }
+    }
+
     @media (max-width: 600px) {
       nav { gap: 1.2rem; }
       nav button { margin-right: 0; font-size: 0.7rem; }
@@ -419,17 +447,27 @@
 
     <!-- ABOUT -->
     <section id="about" class="section active">
-      <p class="about-bio">
-        Faraz Nahyan is an electrical engineer and entrepreneur based in Toronto, working at the intersection of <em>biomedical technology</em> and human experience. Outside of building, he shoots portrait photography and performs classical and jazz piano.
-      </p>
+      <div class="about-layout">
+        <div class="about-copy">
+          <p class="about-bio">
+            Faraz Nahyan is an electrical engineer and entrepreneur based in Toronto, working at the intersection of <em>biomedical technology</em> and human experience. Outside of building, he shoots portrait photography and performs classical and jazz piano.
+          </p>
 
-      <p class="currently-label">Currently</p>
-      <ul class="currently-list">
-        <li>Developing a retinal prosthetics venture through Brilliant Catalyst, Ontario Tech</li>
-        <li>Completing a B.Eng. in Electrical Engineering — prior B.Sc. in Biochemistry</li>
-        <li>Building at the intersection of biological and inorganic interfaces</li>
-        <li>Open to engineering roles, research collaborations, and photography commissions</li>
-      </ul>
+          <p class="currently-label">Currently</p>
+          <ul class="currently-list">
+            <li>Developing a retinal prosthetics venture through Brilliant Catalyst, Ontario Tech</li>
+            <li>Completing a B.Eng. in Electrical Engineering — prior B.Sc. in Biochemistry</li>
+            <li>Building at the intersection of biological and inorganic interfaces</li>
+            <li>Open to engineering roles, research collaborations, and photography commissions</li>
+          </ul>
+        </div>
+
+        <img
+          src="./photos/headshots/headshot.jpg"
+          class="about-headshot"
+          alt="Portrait of Faraz Nahyan"
+          decoding="async">
+      </div>
 
       <p class="contact-line">
         Get in touch — <a href="mailto:faraz.nahyan1@ontariotechu.net">faraz.nahyan1@ontariotechu.net</a>
