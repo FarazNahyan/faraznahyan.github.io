@@ -76,11 +76,11 @@
     }
 
     /* NAV */
-  nav {
-  display: flex;
-  justify-content: center;
-  gap: 2.8rem;
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2.8rem;
+    }
 
     nav button {
       background: none;
@@ -92,8 +92,8 @@
       font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.6rem 1.2rem 0.6rem 0;
-      margin-right: 1.6rem;
+      padding: 0.6rem 0;
+      margin-right: 0;
       cursor: pointer;
       transition: color 0.2s, border-color 0.2s;
     }
@@ -239,7 +239,7 @@
     .project-link:hover { border-bottom-color: var(--accent); }
 
     .resume-embed {
-      margin-top: 2rem;
+      margin-top: 0;
       border: 1px solid var(--border);
       background: var(--surface);
       overflow: hidden;
@@ -251,6 +251,10 @@
       max-height: 900px;
       border: none;
       display: block;
+    }
+
+    #resume .project-link {
+      margin-top: 1.5rem;
     }
 
     @media (max-width: 600px) {
@@ -389,7 +393,8 @@
 
     /* RESPONSIVE */
     @media (max-width: 600px) {
-      nav button { margin-right: 0.8rem; font-size: 0.75rem; }
+      nav { gap: 1.2rem; }
+      nav button { margin-right: 0; font-size: 0.7rem; }
       .project-card { padding: 1.5rem; }
     }
   </style>
@@ -430,15 +435,14 @@
 
     <!-- RESUME -->
     <section id="resume" class="section">
-      <!-- Upload your resume PDF to the repo (e.g. as resume.pdf, same folder as this file) so this works -->
-      <a href="resume.pdf" class="project-link" target="_blank" rel="noopener">Download resume (PDF)</a>
-
       <!-- Inline preview — hidden on phones (see .resume-embed media query above), since
            PDF-in-iframe rendering is unreliable on mobile browsers. The download link
-           above always works everywhere and is the fallback for anyone who doesn't see this. -->
+           below always works everywhere and is the fallback for anyone who doesn't see this. -->
       <div class="resume-embed">
         <iframe src="resume.pdf" title="Résumé preview" loading="lazy"></iframe>
       </div>
+
+      <a href="resume.pdf" class="project-link" target="_blank" rel="noopener">Download résumé (PDF)</a>
     </section>
 
     <!-- PROJECTS -->
