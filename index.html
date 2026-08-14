@@ -309,12 +309,20 @@
     /* The mat is LIGHTER than the page, not white. The print floats
        instead of glowing, and the photo's own highlights stay the
        brightest thing in the frame. */
-    .photo-figure { margin: 0; }
+    .photo-figure {
+      margin: 0;
+      display: grid;
+    }
 
     .photo-figure img {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
       height: auto;
+      max-height: 72vh;
+      max-height: min(72svh, 720px);
       display: block;
+      justify-self: center;
+      object-fit: contain;
       background: var(--surface);
       padding: clamp(0.6rem, 2vw, 1.1rem);
       border: 1px solid var(--line);
