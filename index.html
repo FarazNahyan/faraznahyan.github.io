@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-CA" data-view="work">
+<html lang="en-CA" data-view="portfolio">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -35,10 +35,10 @@
     (function () {
       var d = document.documentElement;
       var key = decodeURIComponent(location.hash.slice(1)).toLowerCase();
-      var map = { work: 'work', photography: 'work', portfolio: 'work', portraits: 'work', street: 'work',
+      var map = { portfolio: 'portfolio', work: 'portfolio', photography: 'portfolio', portraits: 'portfolio', street: 'portfolio',
                   about: 'about', projects: 'projects', resume: 'resume' };
       d.classList.add('js');
-      d.setAttribute('data-view', map[key] || 'work');
+      d.setAttribute('data-view', map[key] || 'portfolio');
     })();
   </script>
 
@@ -183,7 +183,7 @@
     /* ---------- Pages: only the current one shows ---------- */
 
     .js .view { display: none; }
-    .js[data-view="work"] #work,
+    .js[data-view="portfolio"] #portfolio,
     .js[data-view="about"] #about,
     .js[data-view="projects"] #projects,
     .js[data-view="resume"] #resume { display: block; }
@@ -666,10 +666,10 @@
 
   <header class="site-header">
     <div class="wrap">
-      <a class="wordmark" href="#work">Faraz Nahyan</a>
+      <a class="wordmark" href="#portfolio">Faraz Nahyan</a>
       <nav class="primary-nav" aria-label="Main">
         <ul>
-          <li><a href="#work" data-view-link="work">Work</a></li>
+          <li><a href="#portfolio" data-view-link="portfolio">Portfolio</a></li>
           <li><a href="#about" data-view-link="about">About</a></li>
           <li><a href="#projects" data-view-link="projects">Projects</a></li>
           <li><a href="#resume" data-view-link="resume">Resume</a></li>
@@ -681,8 +681,8 @@
 
   <main id="main" tabindex="-1">
 
-    <!-- ================= WORK (home page) ================= -->
-    <div class="view" id="work">
+    <!-- ================= PORTFOLIO (home page) ================= -->
+    <div class="view" id="portfolio">
 
       <section class="hero wrap" aria-labelledby="hero-title">
         <div class="hero-copy">
@@ -915,11 +915,11 @@
     const seriesNav = document.querySelector('.series-nav');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const VIEWS = ['work', 'about', 'projects', 'resume'];
-    const ALIASES = { photography: 'work', portfolio: 'work' };          // old links keep working
-    const ANCHORS = { portraits: 'work', street: 'work', contact: null };  // null = stay on this page
+    const VIEWS = ['portfolio', 'about', 'projects', 'resume'];
+    const ALIASES = { work: 'portfolio', photography: 'portfolio' };               // old links keep working
+    const ANCHORS = { portraits: 'portfolio', street: 'portfolio', contact: null }; // null = stay on this page
     const TITLES = {
-      work: 'Faraz Nahyan — Portrait and street photography, Toronto',
+      portfolio: 'Faraz Nahyan — Portrait and street photography, Toronto',
       about: 'About — Faraz Nahyan',
       projects: 'Projects — Faraz Nahyan',
       resume: 'Resume — Faraz Nahyan'
@@ -1067,7 +1067,7 @@
 
     function spy() {
       spyQueued = false;
-      if (!seriesNav || viewNow() !== 'work') return;
+      if (!seriesNav || viewNow() !== 'portfolio') return;
       const line = seriesNav.getBoundingClientRect().bottom + 32;
       let active = -1;
       spyTargets.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= line) active = i; });
@@ -1079,7 +1079,7 @@
     }, { passive: true });
 
     /* ---------- Pages ---------- */
-    function viewNow() { return root.getAttribute('data-view') || 'work'; }
+    function viewNow() { return root.getAttribute('data-view') || 'portfolio'; }
 
     function resolve(hash) {
       const key = decodeURIComponent((hash || '').replace(/^#/, '')).toLowerCase();
@@ -1107,15 +1107,20 @@
       if (el) el.scrollIntoView({ behavior: smooth && !reduceMotion.matches ? 'smooth' : 'auto', block: 'start' });
     }
 
+    // What the address bar shows for each page. Portfolio is the home page, so it gets the
+    // plain address (faraznahyan.com); the others get faraznahyan.com/#about and so on.
+    const addressFor = view => location.pathname + location.search + (view === 'portfolio' ? '' : '#' + view);
+    const addressNow = () => location.pathname + location.search + location.hash;
+
     function go(hash, { push = true, smooth = true } = {}) {
       const target = resolve(hash);
       if (!target) return false;
       const changed = setView(target.view);
+      const address = addressFor(target.view);
+      if (push && addressNow() !== address && (changed || !target.anchor)) history.pushState(null, '', address);
       if (target.anchor) {
-        if (location.hash !== hash) history.replaceState(null, '', hash);
-        jumpTo(target.anchor, smooth && !changed);
+        jumpTo(target.anchor, smooth && !changed);   // jumps within a page leave the address alone
       } else {
-        if (push && location.hash !== hash) history.pushState(null, '', hash);
         window.scrollTo(0, 0);
         if (changed) document.getElementById('main').focus({ preventScroll: true });
       }
@@ -1123,7 +1128,7 @@
       return true;
     }
 
-    window.addEventListener('popstate', () => go(location.hash || '#work', { push: false, smooth: false }));
+    window.addEventListener('popstate', () => go(location.hash || '#portfolio', { push: false, smooth: false }));
 
     /* ---------- Photo viewer ---------- */
     const viewer = document.querySelector('.lightbox');
@@ -1264,9 +1269,12 @@
     barObserver.observe(header);
     if (seriesNav) barObserver.observe(seriesNav);
 
-    const first = resolve(location.hash) || { view: 'work' };
+    const first = resolve(location.hash) || { view: 'portfolio' };
     setView(first.view);
     if (first.anchor) requestAnimationFrame(() => jumpTo(first.anchor, false));
+    else if (location.hash && addressNow() !== addressFor(first.view)) {
+      history.replaceState(null, '', addressFor(first.view));   // tidy old links like /#work into the plain address
+    }
     spy();
   })();
   </script>
