@@ -294,6 +294,37 @@
 
     /* PHOTOGRAPHY ------------------------------------------------------- */
 
+    .photo-jump {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .photo-jump a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line-lit);
+      padding-bottom: 0.2rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .photo-jump a:hover { color: var(--text); border-bottom-color: var(--text); }
+
+    .photo-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: start;
+    }
+
+    @media (max-width: 760px) {
+      .photo-columns { grid-template-columns: 1fr; }
+    }
+
     .photo-intro {
       font-size: 0.95rem;
       color: var(--secondary);
@@ -453,7 +484,14 @@
         Portrait and street work. New shots added as the portfolio grows.
       </p>
 
-      <p class="section-label">Street Photography</p>
+      <nav class="photo-jump" aria-label="Photography categories">
+        <a href="#street-heading">Street Photography</a>
+        <a href="#portraits-heading">Portraiture</a>
+      </nav>
+
+      <div class="photo-columns">
+      <div class="photo-column">
+      <p class="section-label" id="street-heading">Street Photography</p>
       <div class="photo-grid">
         <figure class="photo-figure">
           <img src="./photos/street/street-01.jpg" alt="Street photograph: a cook at work beside a painted brick wall" loading="lazy" decoding="async">
@@ -493,7 +531,10 @@
         
       </div>
 
-      <p class="section-label">Portraiture</p>
+      </div>
+
+      <div class="photo-column">
+      <p class="section-label" id="portraits-heading">Portraiture</p>
       <div class="photo-grid">
         <figure class="photo-figure">
           <img src="./photos/portraits/portrait-01.jpg" alt="Portrait photograph" loading="lazy" decoding="async">
@@ -525,6 +566,8 @@
         <figure class="photo-figure">
           <img src="./photos/portraits/portrait-10.jpg" alt="Portrait photograph" loading="lazy" decoding="async">
         </figure>
+      </div>
+      </div>
       </div>
     </section>
 
